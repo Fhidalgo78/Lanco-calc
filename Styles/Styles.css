@@ -1,0 +1,153 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+
+  /* CSS */
+  .small-input {
+    width: 300px;
+    /* Cambia el ancho a tu preferencia */
+  }
+
+  .img-fluid {
+    width: 15%;
+  }
+}
+
+/* 
+    ##Device = Laptops, Desktops
+    ##Screen = B/w 1025px to 1280px
+  */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+  /* CSS */
+  .img-fluid {
+    width: 15%;
+  }
+}
+
+/* 
+    ##Device = Tablets, Ipads (portrait)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .small-input {
+    width: 200px;
+    /* Cambia el ancho a tu preferencia */
+  }
+
+  .img-fluid {
+    width: 15%;
+  }
+}
+
+/* 
+    ##Device = Tablets, Ipads (landscape)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+  .small-input {
+    width: 190px;
+    /* Cambia el ancho a tu preferencia */
+  }
+
+  .img-fluid {
+    width: 20%;
+  }
+}
+
+/* 
+    ##Device = Low Resolution Tablets, Mobiles (Landscape)
+    ##Screen = B/w 481px to 767px
+  */
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+  .small-input {
+    width: 160px;
+    /* Cambia el ancho a tu preferencia */
+  }
+
+  .img-fluid {
+    width: 25%;
+  }
+}
+
+/* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+  .small-input {
+    width: 120px;
+    /* Cambia el ancho a tu preferencia */
+  }
+
+  .img-fluid {
+    width: 30%;
+  }
+
+}
+
+
+
+.gray-bg-row {
+  background-color: #f3f3f3;
+}
+
+.padding-y-15 {
+  padding: 15px 0px;
+}
+
+.small-input {
+  border: none;
+  border-bottom: 1px solid #000;
+  /* Cambia el color a tu preferencia */
+  font-size: 14px;
+  /* Cambia el tamaño de fuente a tu preferencia */
+  padding: 5px 0;
+  /* Ajusta el relleno superior e inferior a tu preferencia */
+  margin: 5px;
+  /* Ajusta el margen a tu preferencia */
+  background-color: transparent;
+  /* Hace que el fondo sea transparente */
+  outline: none;
+  /* Elimina el borde de enfoque */
+}
+
+.blue-oval-button {
+  background-color: #001f3f;
+  /* Cambia el color a azul marino de tu elección */
+  color: #fff;
+  /* Cambia el color del texto a tu preferencia */
+  border: none;
+  border-radius: 50px;
+  /* Establece el radio de borde para hacerlo ovalado */
+  padding: 15px 30px;
+  /* Ajusta el relleno para hacerlo grande */
+  font-size: 16px;
+  /* Ajusta el tamaño de fuente a tu preferencia */
+  cursor: pointer;
+  /* Cambia el cursor al pasar el ratón */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.blue-oval-button:hover {
+  background-color: #003f7f;
+  /* Cambia el color de fondo al pasar el ratón */
+}
+
+div.row-container-wrapper>div {
+  width: 47%;
+}

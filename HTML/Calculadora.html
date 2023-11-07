@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <link href="../Styles/Styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <section>
+            <div class="row justify-content-center ">
+                <img src="../Icon/logosin@4x.png" class="img-fluid" alt="Responsive image">
+            </div>
+        </section>
+
+        <section>
+            <div class="container-fluid gray-bg-row mt-3 ">
+                <div class="row mx-auto justify-content-between padding-y-15 ">
+                    <p>UNIDAD</p>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1">Metros/Pies</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container-fluid">
+                <section>
+                    <div class="container-fluid mt-3">
+                        <div class="row mx-auto">
+                            <p class="font-weight-bold">PAREDES</p>
+                        </div>
+                        <div id="contenedor-divs-paredes">
+                            <div class="row mx-auto row-container-wrapper">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <hr>
+
+                <section>
+                    <div class="container-fluid mt-3">
+                        <div class="row mx-auto">
+                            <p class="font-weight-bold">PUERTAS Y VENTANA</p>
+                        </div>
+                        <div id="contenedor-divs-puertas">
+                            <div class="row mx-auto row-container-wrapper">
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </section>
+
+
+        <section>
+            <div class="container-fluid mt-3">
+                <div class="row justify-content-between ">
+                    <button id="addVentana-btn">Add1</button>
+                    <button id="addPuerta-btn">Add2</button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container-fluid gray-bg-row mt-3 ">
+                <div class="row mx-auto justify-content-between padding-y-15 ">
+                    <p>Total</p>
+                    <p>Resultado</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container-fluid mt-3">
+                <div class="row justify-content-center ">
+                    <button type="button" class="blue-oval-button" id="calcular-btn">Calcular</button>
+                </div>
+            </div>
+        </section>
+
+        <script type="module" src="../JS/Calculadora.js"></script>
+    </div>
+
+</body>
+
+</html>
