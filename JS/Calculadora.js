@@ -2,8 +2,8 @@ import { divPuertasVentanas, divParedes } from "./constantes.js";
 
 let unidadMedidad = "m2";
 let ft = 10.7639;
-let inputParedesValidation = 0;
-let inputPuertasValidation = 0;
+let inputParedesValidation = true;
+let inputPuertasValidation = true;
 
 $(document).ready(function () {
   // Agregar un nuevo div con el contenido "Paredes" al hacer clic en el botón "Add1"
@@ -50,7 +50,7 @@ function agregarDivPuertasVentanas() {
 function buttonListener() {
   verificaInputNumerico();
 
-  if (inputParedesValidation >= 2 && inputParedesValidation % 2 == 0) {
+  if (inputParedesValidation) {
     // Usando jQuery para seleccionar elementos por clase
     const valoresParedesLargos = $(".paredes-input-largo")
       .map(function () {
@@ -144,7 +144,8 @@ function verificaInputNumerico() {
   var $divsGenerados = $(".small-input");
 
   // Itera a través de los divs para recuperar los valores
-  inputParedesValidation = 0;
+  inputParedesValidation = true;
+  inputPuertasValidation = true;
   for (let i = 0; i < $divsGenerados.length; i++) {
     //verifica si no es numero
     if (isNaN($divsGenerados[i].value)) {
@@ -153,23 +154,19 @@ function verificaInputNumerico() {
     //verifica si es un input de paredes y no esta vacio
     if (
       $divsGenerados[i].classList.contains("paredes-input") &&
-      $divsGenerados[i].value != ""
+      $divsGenerados[i].value === ""
     ) {
-      inputParedesValidation++;
-      //verifica si es un input de puertas y ventanas y esta vacio
-      // } else if (
-      //   $divsGenerados[i].classList.contains("paredes-input") &&
-      //   $divsGenerados[i].value === ""
-      // ) {
-      //   inputParedesValidation--;
-      // }
+      inputParedesValidation = false;
+      break;
     }
+    //verifica inputs de puertas y ventanas en caso de haber, que  no este vacio
     if (
       $divsGenerados[i].classList.contains("puertas-input") &&
       $("#contenedor-divs-puertas").children().length > 0 &&
       $divsGenerados[i].value === ""
     ) {
         inputPuertasValidation = false;
+        break;
     }
   }
 }
