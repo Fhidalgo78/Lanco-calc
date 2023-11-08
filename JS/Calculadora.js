@@ -27,6 +27,7 @@ $(document).ready(function () {
 
   $("body").on("blur", ".small-input", function () {
     verificaInputNumerico();
+    verificaResultado();
   });
 });
 
@@ -34,6 +35,7 @@ $(document).ready(function () {
 function borrarDiv() {
   $(this).closest(".row-container-wrapper").remove();
   verificaInputNumerico();
+  verificaResultado();
 }
 // Función para agregar un nuevo div
 function agregarDivParedes() {
@@ -49,6 +51,7 @@ function agregarDivPuertasVentanas() {
 
 function buttonListener() {
   verificaInputNumerico();
+  verificaResultado();
 
   if (inputParedesValidation) {
     // Usando jQuery para seleccionar elementos por clase
@@ -87,10 +90,9 @@ function buttonListener() {
     alert("Debe ingresar al menos dos valores");
   }
 
-  if(!inputPuertasValidation ){
+  if (!inputPuertasValidation) {
     alert("suwi");
   }
-
 }
 function changeColorMode(ele) {
   unidadMedidad = $(ele).prop("checked") ? "ft" : "m2";
@@ -165,8 +167,17 @@ function verificaInputNumerico() {
       $("#contenedor-divs-puertas").children().length > 0 &&
       $divsGenerados[i].value === ""
     ) {
-        inputPuertasValidation = false;
-        break;
+      inputPuertasValidation = false;
+      break;
     }
+  }
+}
+
+function verificaResultado() {
+  if (inputParedesValidation && inputPuertasValidation) {
+    // Supongamos que tienes un elemento <p> con el ID "miParrafo".
+    var textoExistente = $("#id-resultado").text();
+    var nuevoTextoEnNegrita = `<strong>${}</strong>`
+    $("#miParrafo").html(textoExistente + nuevoTextoEnNegrita);
   }
 }
