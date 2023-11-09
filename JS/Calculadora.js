@@ -4,6 +4,7 @@ let unidadMedidad = "m2";
 let ft = 10.7639;
 let inputParedesValidation = true;
 let inputPuertasValidation = true;
+let totalArea = 0;
 
 $(document).ready(function () {
   // Agregar un nuevo div con el contenido "Paredes" al hacer clic en el botón "Add1"
@@ -14,15 +15,12 @@ $(document).ready(function () {
 
   $("#calcular-btn").click(buttonListener);
 
-  // Agregar un nuevo div al hacer clic en el botón "Agregar Div"
-  //$("#agregar-div-btn").click(agregarDiv);
-
   // Borrar un div al hacer clic en el ícono trash
   $(document).on("click", ".borrar-div", borrarDiv);
 
   //Cambia unidad de medida de metros a pies y viceversa con checkbox
   $("#color_mode").on("change", function () {
-    changeColorMode(this);
+    changeUnidadMedida(this);
   });
 
   $("body").on("blur", ".small-input", function () {
@@ -54,38 +52,7 @@ function buttonListener() {
   verificaResultado();
 
   if (inputParedesValidation) {
-    // Usando jQuery para seleccionar elementos por clase
-    const valoresParedesLargos = $(".paredes-input-largo")
-      .map(function () {
-        return parseFloat($(this).val());
-      })
-      .get();
-
-    const valoresParedesAnchos = $(".paredes-input-ancho")
-      .map(function () {
-        return parseFloat($(this).val());
-      })
-      .get();
-
-    const valoresPuertasLargos = $(".puertas-input-largo")
-      .map(function () {
-        return parseFloat($(this).val());
-      })
-      .get();
-
-    const valoresPuertasAnchos = $(".puertas-input-ancho")
-      .map(function () {
-        return parseFloat($(this).val());
-      })
-      .get();
-
-    // La variable "valores" contendrá un array con los valores de los inputs
-    calcularTotalArea(
-      valoresParedesAnchos,
-      valoresParedesLargos,
-      valoresPuertasAnchos,
-      valoresPuertasLargos
-    );
+    calculaAreaTrigger();
   } else {
     alert("Debe ingresar al menos dos valores");
   }
@@ -94,8 +61,44 @@ function buttonListener() {
     alert("suwi");
   }
 }
-function changeColorMode(ele) {
+function changeUnidadMedida(ele) {
   unidadMedidad = $(ele).prop("checked") ? "ft" : "m2";
+  verificaResultado();
+}
+
+function calculaAreaTrigger(){
+  // Usando jQuery para seleccionar elementos por clase
+  const valoresParedesLargos = $(".paredes-input-largo")
+  .map(function () {
+    return parseFloat($(this).val());
+  })
+  .get();
+
+const valoresParedesAnchos = $(".paredes-input-ancho")
+  .map(function () {
+    return parseFloat($(this).val());
+  })
+  .get();
+
+const valoresPuertasLargos = $(".puertas-input-largo")
+  .map(function () {
+    return parseFloat($(this).val());
+  })
+  .get();
+
+const valoresPuertasAnchos = $(".puertas-input-ancho")
+  .map(function () {
+    return parseFloat($(this).val());
+  })
+  .get();
+
+// La variable "valores" contendrá un array con los valores de los inputs
+calcularTotalArea(
+  valoresParedesAnchos,
+  valoresParedesLargos,
+  valoresPuertasAnchos,
+  valoresPuertasLargos
+);
 }
 
 function calcularTotalArea(
@@ -106,7 +109,7 @@ function calcularTotalArea(
 ) {
   let totalAreaParedes = 0;
   let totalAreaPuertas = 0;
-  let totalArea = 0;
+  totalArea = 0;
   let resultado = 0;
   let galonesTotales = 0;
 
@@ -135,37 +138,37 @@ function calcularTotalArea(
     galonesTotales = resultado / ft / 15;
   }
 
-  console.log(galonesTotales);
-  console.log(totalArea);
-
-  return totalArea;
+  return galonesTotales;
 }
 
 function verificaInputNumerico() {
-  // Recupera los divs con la clase "div-generado"
   var $divsGenerados = $(".small-input");
 
-  // Itera a través de los divs para recuperar los valores
   inputParedesValidation = true;
   inputPuertasValidation = true;
   for (let i = 0; i < $divsGenerados.length; i++) {
-    //verifica si no es numero
-    if (isNaN($divsGenerados[i].value)) {
-      alert("Ingrese solo numero");
+    var $input = $divsGenerados[i];
+    var $errorMessage = $input.nextElementSibling; // Encuentra el elemento "span" siguiente
+    
+    $errorMessage.textContent = ""; // Borra el mensaje de error al inicio de cada iteración
+
+    if (isNaN($input.value)) {
+      $errorMessage.textContent = "Ingrese solo números"; // Muestra el mensaje de error
     }
-    //verifica si es un input de paredes y no esta vacio
+
     if (
-      $divsGenerados[i].classList.contains("paredes-input") &&
-      $divsGenerados[i].value === ""
+      $input.classList.contains("paredes-input") &&
+      $input.value === ""
     ) {
       inputParedesValidation = false;
+      $errorMessage.textContent = "Al menos dos valores"; // Muestra el mensaje de error
       break;
     }
-    //verifica inputs de puertas y ventanas en caso de haber, que  no este vacio
+
     if (
-      $divsGenerados[i].classList.contains("puertas-input") &&
+      $input.classList.contains("puertas-input") &&
       $("#contenedor-divs-puertas").children().length > 0 &&
-      $divsGenerados[i].value === ""
+      $input.value === ""
     ) {
       inputPuertasValidation = false;
       break;
@@ -173,11 +176,20 @@ function verificaInputNumerico() {
   }
 }
 
+
 function verificaResultado() {
   if (inputParedesValidation && inputPuertasValidation) {
-    // Supongamos que tienes un elemento <p> con el ID "miParrafo".
-    var textoExistente = $("#id-resultado").text();
-    var nuevoTextoEnNegrita = `<strong>${}</strong>`
-    $("#miParrafo").html(textoExistente + nuevoTextoEnNegrita);
+    $("#idResultado").empty(); // Opcionalmente, puedes usar .html('') en lugar de .empty()
+    calculaAreaTrigger();
+    var nuevoTextoEnNegrita = `<strong>${totalArea} ${unidadMedidad}</strong>`;
+    $("#idResultado").html(nuevoTextoEnNegrita);
+  }
+  else {
+    $("#idResultado").empty(); // Opcionalmente, puedes usar .html('') en lugar de .empty()
+    calculaAreaTrigger();
+    var nuevoTextoEnNegrita = `<strong>0 ${unidadMedidad}</strong>`;
+    $("#idResultado").html(nuevoTextoEnNegrita);
   }
 }
+
+
