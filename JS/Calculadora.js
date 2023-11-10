@@ -5,6 +5,7 @@ let ft = 10.7639;
 let inputParedesValidation = true;
 let inputPuertasValidation = true;
 let totalArea = 0;
+let galonesTotales = 0;
 
 $(document).ready(function () {
   // Agregar un nuevo div con el contenido "Paredes" al hacer clic en el botón "Add1"
@@ -53,12 +54,7 @@ function buttonListener() {
 
   if (inputParedesValidation) {
     calculaAreaTrigger();
-  } else {
-    alert("Debe ingresar al menos dos valores");
-  }
-
-  if (!inputPuertasValidation) {
-    alert("suwi");
+    resultadoCalculo();
   }
 }
 function changeUnidadMedida(ele) {
@@ -66,39 +62,39 @@ function changeUnidadMedida(ele) {
   verificaResultado();
 }
 
-function calculaAreaTrigger(){
+function calculaAreaTrigger() {
   // Usando jQuery para seleccionar elementos por clase
   const valoresParedesLargos = $(".paredes-input-largo")
-  .map(function () {
-    return parseFloat($(this).val());
-  })
-  .get();
+    .map(function () {
+      return parseFloat($(this).val());
+    })
+    .get();
 
-const valoresParedesAnchos = $(".paredes-input-ancho")
-  .map(function () {
-    return parseFloat($(this).val());
-  })
-  .get();
+  const valoresParedesAnchos = $(".paredes-input-ancho")
+    .map(function () {
+      return parseFloat($(this).val());
+    })
+    .get();
 
-const valoresPuertasLargos = $(".puertas-input-largo")
-  .map(function () {
-    return parseFloat($(this).val());
-  })
-  .get();
+  const valoresPuertasLargos = $(".puertas-input-largo")
+    .map(function () {
+      return parseFloat($(this).val());
+    })
+    .get();
 
-const valoresPuertasAnchos = $(".puertas-input-ancho")
-  .map(function () {
-    return parseFloat($(this).val());
-  })
-  .get();
+  const valoresPuertasAnchos = $(".puertas-input-ancho")
+    .map(function () {
+      return parseFloat($(this).val());
+    })
+    .get();
 
-// La variable "valores" contendrá un array con los valores de los inputs
-calcularTotalArea(
-  valoresParedesAnchos,
-  valoresParedesLargos,
-  valoresPuertasAnchos,
-  valoresPuertasLargos
-);
+  // La variable "valores" contendrá un array con los valores de los inputs
+  calcularTotalArea(
+    valoresParedesAnchos,
+    valoresParedesLargos,
+    valoresPuertasAnchos,
+    valoresPuertasLargos
+  );
 }
 
 function calcularTotalArea(
@@ -111,7 +107,7 @@ function calcularTotalArea(
   let totalAreaPuertas = 0;
   totalArea = 0;
   let resultado = 0;
-  let galonesTotales = 0;
+  galonesTotales = 0;
 
   //se multiplica el ancho por el largo de cada pared y se suma
 
@@ -135,7 +131,7 @@ function calcularTotalArea(
     galonesTotales = totalArea / 15;
   } else {
     totalArea = resultado * ft;
-    galonesTotales = resultado / ft / 15;
+    galonesTotales = totalArea / ft / 15;
   }
 
   return galonesTotales;
@@ -149,7 +145,7 @@ function verificaInputNumerico() {
   for (let i = 0; i < $divsGenerados.length; i++) {
     var $input = $divsGenerados[i];
     var $errorMessage = $input.nextElementSibling; // Encuentra el elemento "span" siguiente
-    
+
     $errorMessage.textContent = ""; // Borra el mensaje de error al inicio de cada iteración
 
     if (isNaN($input.value)) {
@@ -178,18 +174,56 @@ function verificaInputNumerico() {
 
 
 function verificaResultado() {
-  if (inputParedesValidation && inputPuertasValidation) {
+  calculaAreaTrigger();
+  if (inputParedesValidation && inputPuertasValidation && !isNaN(totalArea)) {
+    var areaFormateada = formatearNumeroConDecimales(totalArea);
     $("#idResultado").empty(); // Opcionalmente, puedes usar .html('') en lugar de .empty()
-    calculaAreaTrigger();
-    var nuevoTextoEnNegrita = `<strong>${totalArea} ${unidadMedidad}</strong>`;
+    var nuevoTextoEnNegrita = `<strong>${areaFormateada} ${unidadMedidad}</strong>`;
     $("#idResultado").html(nuevoTextoEnNegrita);
   }
   else {
     $("#idResultado").empty(); // Opcionalmente, puedes usar .html('') en lugar de .empty()
-    calculaAreaTrigger();
     var nuevoTextoEnNegrita = `<strong>0 ${unidadMedidad}</strong>`;
     $("#idResultado").html(nuevoTextoEnNegrita);
   }
 }
+
+
+function resultadoCalculo() {
+ var galonesRedondeado = Math.ceil(galonesTotales);
+ var mensajeGalones = "";
+  if (galonesTotales === 1) {
+    //redondea galones
+    mensajeGalones = `${galonesRedondeado} galon`;
+  } else {
+    mensajeGalones = `${galonesRedondeado} galones`;
+  }
+  
+  //formatear area total
+  var areaFormateada = formatearNumeroConDecimales(totalArea);
+  var nuevoContenido = `
+    <img class="mt-5" src="../Icon/galon.png" width="35px" height="50px">
+    <h3 class="mt-3">${mensajeGalones}</h3>
+    <h4 class="mt-3">área de superficie: ${areaFormateada} ${unidadMedidad}</h4>
+    <hr class="custom-hr">
+    <div class="text-wrapper">
+        <p class="mt-3" style="width: 65%;">Esta información es solo de referencia. La cantidad real va a depender de las condiciones de aplicación y tipo de superficie.</p>
+    </div>
+    <button class="large-sky-btn">LOCALIZAR TIENDA</button>
+`;
+  $("#modal-content").html(nuevoContenido);
+}
+
+
+function formatearNumeroConDecimales(numero) {
+  var numeroFormateado = numero.toString();
+  if (numeroFormateado.includes('.')) {
+    // Si el número tiene decimales, lo formateamos con dos decimales
+    numeroFormateado = parseFloat(numero).toFixed(2);
+  }
+  return numeroFormateado;
+}
+
+
 
 

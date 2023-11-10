@@ -1,3 +1,8 @@
+
+body{
+  font-family: Roboto;
+}
+
 /* 
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
@@ -151,6 +156,7 @@
   padding: 15px 30px;
   /* Ajusta el relleno para hacerlo grande */
   font-size: 16px;
+  font-weight: bolder;
   /* Ajusta el tamaño de fuente a tu preferencia */
   cursor: pointer;
   /* Cambia el cursor al pasar el ratón */
@@ -186,7 +192,7 @@
   border-radius: 48px;
   padding: 5px 60px;
   /* font-size: 30px; */
-  font-weight: lighter;
+  font-weight: bolder;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -232,6 +238,7 @@ div.row-container-wrapper>div {
   background: rgba(0, 0, 0, 0.5);
   z-index: 0;
 }
+
 
 .custom-hr {
   border: 0;
