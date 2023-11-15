@@ -117,7 +117,7 @@ function calcularTotalArea(
   totalArea = 0;
   let resultado = 0;
   galonesTotales = 0;
-
+  let newAreaPuertas = 0;
   //se multiplica el ancho por el largo de cada pared y se suma
 
   for (let i = 0; i < valoresParedesAnchos.length; i++) {
@@ -128,8 +128,16 @@ function calcularTotalArea(
     totalAreaPuertas += valoresPuertasAnchos[i] * valoresPuertasLargos[i];
   }
 
-  //el total de area de las paredes se resta con el total de area de las puertas y ventanas
-  resultado = totalAreaParedes - totalAreaPuertas;
+
+    //el total de area de las paredes se resta con el total de area de las puertas y ventanas
+  if(isNaN(totalAreaPuertas)){
+    resultado = totalAreaParedes - newAreaPuertas;
+  }
+  else {
+    resultado = totalAreaParedes - totalAreaPuertas;
+  }
+
+  
 
   console.log(unidadMedidad);
 
@@ -198,7 +206,7 @@ function verificaInputNumerico() {
 
 function verificaResultado() {
   calculaAreaTrigger();
-  if (inputParedesValidation && inputPuertasValidation && !isNaN(totalArea)) {
+  if (inputParedesValidation && !isNaN(totalArea)) {
     var areaFormateada = formatearNumeroConDecimales(totalArea);
     $("#idResultado").empty(); // Opcionalmente, puedes usar .html('') en lugar de .empty()
     var nuevoTextoEnNegrita = `<strong>${areaFormateada} ${unidadMedidad}</strong>`;
@@ -255,7 +263,7 @@ function toggleBtnPopOver() {
   var calcularBtn = $('#calcular-btn');
 
   // Lógica para validar
-  if (inputParedesValidation) {
+  if (inputParedesValidation && totalArea > 0 ) {
       // Habilita el botón y elimina el span
       btnDiv.empty().append(`<button class="blue-oval-button" id="calcular-btn" type="button" data-toggle="modal" data-target="#exampleModal">CALCULAR</button>`);
       $("#calcular-btn").click(buttonListener);
@@ -264,7 +272,7 @@ function toggleBtnPopOver() {
     
   } else {
       // Deshabilita el botón y agrega el span
-      btnDiv.empty().append(`<a tabindex="0" class="blue-oval-button" role="button" data-toggle="popover" data-trigger="focus" title="Ingresa paredes" data-content="Los valores deben ser números" style="text-decoration-none ;">CALCULAR</a>
+      btnDiv.empty().append(`<a tabindex="0" class="blue-oval-button" role="button" data-toggle="popover" data-trigger="focus" title="Ingresa paredes" data-content="Los valores deben ser números y mayores a 0" style="text-decoration-none ;">CALCULAR</a>
       `);
       $('[data-toggle="popover"]').popover();
       calcularBtn.attr('disabled', true).css('pointer-events', 'none');
