@@ -1,7 +1,7 @@
 // constantes.js
 
 export const divPuertasVentanas = `
-<div class="row mx-auto row-container-wrapper" >
+<div class="row mx-auto row-container-wrapper align-items-center padding-y-15" >
     <div class="flex-column mx-auto">
         <p>Ancho</p>
         <div class="input-container">
@@ -24,7 +24,7 @@ export const divPuertasVentanas = `
 
 
 export const divParedes = `
-<div class="row mx-auto row-container-wrapper" >
+<div class="row mx-auto row-container-wrapper align-items-center padding-y-15" >
     <div class="flex-column mx-auto">
         <p>Ancho</p>
         <div class="input-container">

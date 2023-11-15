@@ -2,8 +2,8 @@ import { divPuertasVentanas, divParedes } from "./constantes.js";
 
 let unidadMedidad = "m2";
 let ft = 10.7639;
-let inputParedesValidation = true;
-let inputPuertasValidation = true;
+let inputParedesValidation = false;
+let inputPuertasValidation = false;
 let totalArea = 0;
 let galonesTotales = 0;
 
@@ -27,7 +27,15 @@ $(document).ready(function () {
   $("body").on("blur", ".small-input", function () {
     verificaInputNumerico();
     verificaResultado();
+    toggleBtnPopOver();
   });
+
+  toggleBtnPopOver();
+  $(function () {
+    $('[data-toggle="popover"]').popover();
+  });
+  
+
 });
 
 // Función para borrar un div al hacer clic en el ícono trash
@@ -35,6 +43,7 @@ function borrarDiv() {
   $(this).closest(".row-container-wrapper").remove();
   verificaInputNumerico();
   verificaResultado();
+  toggleBtnPopOver();
 }
 // Función para agregar un nuevo div
 function agregarDivParedes() {
@@ -140,36 +149,50 @@ function calcularTotalArea(
 function verificaInputNumerico() {
   var $divsGenerados = $(".small-input");
 
-  inputParedesValidation = true;
-  inputPuertasValidation = true;
-  for (let i = 0; i < $divsGenerados.length; i++) {
-    var $input = $divsGenerados[i];
-    var $errorMessage = $input.nextElementSibling; // Encuentra el elemento "span" siguiente
+  if ($divsGenerados.length === 0) {
+    inputParedesValidation = false;
+    inputPuertasValidation = false;
+  }
+  else {
+    inputParedesValidation = true;
+    inputPuertasValidation = true;
 
-    $errorMessage.textContent = ""; // Borra el mensaje de error al inicio de cada iteración
-
-    if (isNaN($input.value)) {
-      $errorMessage.textContent = "Ingrese solo números"; // Muestra el mensaje de error
-    }
-
-    if (
-      $input.classList.contains("paredes-input") &&
-      $input.value === ""
-    ) {
-      inputParedesValidation = false;
-      $errorMessage.textContent = "Al menos dos valores"; // Muestra el mensaje de error
-      break;
-    }
-
-    if (
-      $input.classList.contains("puertas-input") &&
-      $("#contenedor-divs-puertas").children().length > 0 &&
-      $input.value === ""
-    ) {
-      inputPuertasValidation = false;
-      break;
+    for (let i = 0; i < $divsGenerados.length; i++) {
+      var $input = $divsGenerados[i];
+      var $errorMessage = $input.nextElementSibling; // Encuentra el elemento "span" siguiente
+  
+      $errorMessage.textContent = ""; // Borra el mensaje de error al inicio de cada iteración
+  
+      if (isNaN($input.value) && $input.classList.contains("paredes-input")) {
+        $errorMessage.textContent = "Ingrese solo números"; // Muestra el mensaje de error
+        inputParedesValidation = false;
+      }
+      if (isNaN($input.value) && $input.classList.contains("puertas-input")) {
+        $errorMessage.textContent = "Ingrese solo números"; // Muestra el mensaje de error
+        inputPuertasValidation = false;
+      }
+  
+      if (
+        $input.classList.contains("paredes-input") &&
+        $input.value === ""
+      ) {
+        inputParedesValidation = false;
+        $errorMessage.textContent = "Al menos dos valores"; // Muestra el mensaje de error
+        break;
+      }
+  
+      if (
+        $input.classList.contains("puertas-input") &&
+        $("#contenedor-divs-puertas").children().length > 0 &&
+        $input.value === ""
+      ) {
+        inputPuertasValidation = false;
+        break;
+      }
     }
   }
+
+  
 }
 
 
@@ -190,15 +213,15 @@ function verificaResultado() {
 
 
 function resultadoCalculo() {
- var galonesRedondeado = Math.ceil(galonesTotales);
- var mensajeGalones = "";
+  var galonesRedondeado = Math.ceil(galonesTotales);
+  var mensajeGalones = "";
   if (galonesTotales === 1) {
     //redondea galones
     mensajeGalones = `${galonesRedondeado} galon`;
   } else {
     mensajeGalones = `${galonesRedondeado} galones`;
   }
-  
+
   //formatear area total
   var areaFormateada = formatearNumeroConDecimales(totalArea);
   var nuevoContenido = `
@@ -227,3 +250,26 @@ function formatearNumeroConDecimales(numero) {
 
 
 
+function toggleBtnPopOver() {
+  var btnDiv = $('#btn-div');
+  var calcularBtn = $('#calcular-btn');
+
+  // Lógica para validar
+  if (inputParedesValidation) {
+      // Habilita el botón y elimina el span
+      btnDiv.empty().append(`<button class="blue-oval-button" id="calcular-btn" type="button" data-toggle="modal" data-target="#exampleModal">CALCULAR</button>`);
+      $("#calcular-btn").click(buttonListener);
+      calcularBtn.removeAttr('disabled').css('pointer-events', 'auto');
+     
+    
+  } else {
+      // Deshabilita el botón y agrega el span
+      btnDiv.empty().append(`<a tabindex="0" class="blue-oval-button" role="button" data-toggle="popover" data-trigger="focus" title="Ingresa paredes" data-content="Los valores deben ser números" style="text-decoration-none ;">CALCULAR</a>
+      `);
+      $('[data-toggle="popover"]').popover();
+      calcularBtn.attr('disabled', true).css('pointer-events', 'none');
+      $('.popover-dismiss').popover({
+        trigger: 'focus'
+      })
+  }
+}

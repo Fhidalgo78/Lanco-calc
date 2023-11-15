@@ -2,14 +2,18 @@
 body{
   font-family: Roboto;
 }
-
+p {
+   margin-bottom: 0px;
+}
 /* 
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
 */
 
 @media (min-width: 1281px) {
-
+button.add-btn {
+  margin-right: 0px;
+}
   /* CSS */
   .small-input {
     width: 300px;
@@ -21,6 +25,7 @@ body{
   }
   #containar-mayor{
     width: 60%;
+    margin: auto;
   }
 }
 
@@ -37,6 +42,7 @@ body{
   }
   #containar-mayor{
     width: 60%;
+    margin: auto;
   }
 
 
@@ -111,6 +117,9 @@ body{
 
 }
 
+.borrar-div:hover {
+  cursor: pointer;
+}
 
 .input-container {
   display: flex;
@@ -169,7 +178,7 @@ body{
   background-color: #57d9dd;
   color: #fefefe;
   border: none;
-  border-radius: 48px;
+  border-radius: 20px;
   padding: 1px 8px;
   font-size: 30px;
   font-weight: bolder;
@@ -177,12 +186,10 @@ body{
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  margin-right: 15px;
 }
 
-.blue-oval-button:hover {
-  background-color: #003f7f;
-  /* Cambia el color de fondo al pasar el ratón */
-}
+
 
 .large-sky-btn {
   margin-top: 30px;
