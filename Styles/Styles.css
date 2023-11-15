@@ -1,14 +1,46 @@
+@font-face {
+  font-family: 'robotoregular';
+  src: url('../Fonts/Roboto-regular/roboto-regular-webfont.woff2') format('woff2'),
+       url('../Fonts/Roboto-regular/roboto-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+@font-face {
+  font-family: 'robotobold';
+  src: url('../Fonts/Roboto-bold/roboto-bold-webfont.woff2') format('woff2'),
+       url('../Fonts/../Fonts/Roboto-bold/roboto-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
 
 body{
-  font-family: Roboto;
+  font-family: 'robotoregular';
 }
 p {
    margin-bottom: 0px;
 }
+
+button{
+  font-family: 'robotobold';
+}
+
+.robotobold{
+  font-family: 'robotobold';
+}
+
 /* 
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
 */
+
+a:hover{
+  color: #fff;
+  text-decoration: none;
+}
 
 @media (min-width: 1281px) {
 button.add-btn {
@@ -156,22 +188,20 @@ button.add-btn {
 
 .blue-oval-button {
   background-color: #001f3f;
-  /* Cambia el color a azul marino de tu elección */
   color: #fff;
-  /* Cambia el color del texto a tu preferencia */
   border: none;
   border-radius: 50px;
-  /* Establece el radio de borde para hacerlo ovalado */
   padding: 15px 30px;
-  /* Ajusta el relleno para hacerlo grande */
   font-size: 16px;
   font-weight: bolder;
-  /* Ajusta el tamaño de fuente a tu preferencia */
   cursor: pointer;
-  /* Cambia el cursor al pasar el ratón */
   text-align: center;
   text-decoration: none;
   display: inline-block;
+}
+
+.blue-oval-button:hover{
+  background-color: #043a71;
 }
 
 .add-btn {
@@ -189,6 +219,9 @@ button.add-btn {
   margin-right: 15px;
 }
 
+.add-btn:hover{
+  background-color: #0aa7ac;
+}
 
 
 .large-sky-btn {
@@ -298,6 +331,7 @@ div.btn-container i{
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
+  /* left : 2px; */
   /*box-shadow: 0px 0px 8px 0px rgba(17, 17, 17, 0.34) inset;*/
   display: block;
 }
@@ -319,7 +353,7 @@ div.btn-container i{
   background: #57d9dd;
   border-radius: 26px;
   position: absolute;
-  /* left: 2px; */
+  left: 2px;
   /* top: 2px; */
   text-align: center;
   transition: all 0.3s ease;
